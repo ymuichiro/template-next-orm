@@ -11,7 +11,8 @@
     "dev": "npm run dev -w packages/app",
     "build": "npm run build -w packages/app",
     "oas": "npm run build -w packages/oas",
-    "prisma": "npm run prisma:migrate -w packages/app"
+    "prisma": "npm run prisma:migrate -w packages/app",
+    "test": "prettier --write 'packages/**/*.{js,jsx,ts,tsx,json,css,md}' --ignore-path .gitignore && npm test -w packages/app && npm run lint -w packages/app"
   },
   "dependencies": {
     "typescript": "^4.9.5"

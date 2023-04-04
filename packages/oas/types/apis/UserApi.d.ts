@@ -15,14 +15,16 @@ import type { GetUsersResponseInner } from '../models';
  *
  */
 export declare class UserApi extends runtime.BaseAPI {
-    /**
-     * get users list
-     * get users
-     */
-    getUsersRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<GetUsersResponseInner>>;
-    /**
-     * get users list
-     * get users
-     */
-    getUsers(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<GetUsersResponseInner>;
+  /**
+   * get users list
+   * get users
+   */
+  getUsersRaw(
+    initOverrides?: RequestInit | runtime.InitOverrideFunction
+  ): Promise<runtime.ApiResponse<GetUsersResponseInner>>;
+  /**
+   * get users list
+   * get users
+   */
+  getUsers(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<GetUsersResponseInner>;
 }

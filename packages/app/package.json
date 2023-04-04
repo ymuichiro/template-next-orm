@@ -8,6 +8,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
+    "test": "eslint './*.{js,jsx,ts,tsx}' --ignore-path ../../.gitignore && tsc --noEmit",
     "prisma:migrate": "prisma migrate dev"
   },
   "dependencies": {

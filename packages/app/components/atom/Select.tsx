@@ -1,7 +1,7 @@
-import InputLabel from "@mui/material/InputLabel";
-import MenuItem from "@mui/material/MenuItem";
-import FormControl from "@mui/material/FormControl";
-import MuiSelect, { SelectChangeEvent } from "@mui/material/Select";
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import MuiSelect, { SelectChangeEvent } from '@mui/material/Select';
 
 interface Item {
   title: string;
@@ -34,7 +34,7 @@ export default function Select(props: Props): JSX.Element {
         label={props.label}
         required={props.required}
       >
-        <MenuItem value="">
+        <MenuItem value=''>
           <em>None</em>
         </MenuItem>
         {props.items?.map((item, index) => {
