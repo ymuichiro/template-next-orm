@@ -10,8 +10,8 @@
     "package.json"
   ],
   "scripts": {
-    "prebuild": "rm -rf ./types",
-    "build": "TS_POST_PROCESS_FILE='../../node_modules/.bin/prettier --write' openapi-generator-cli generate -g typescript-fetch -i ./specification/v1.yml -o ./tmp --enable-post-process-file --global-property skipFormModel=false",
+    "prebuild": "rimraf types && rimraf tmp",
+    "build": "cross-env TS_POST_PROCESS_FILE='npx prettier --write' openapi-generator-cli generate",
     "postbuild": "tsc --outDir ./types",
     "viewer": "swagger-viewer ./specification/v1.yml"
   }

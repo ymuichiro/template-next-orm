@@ -16,20 +16,17 @@ import type { User } from './User';
  * @interface GetUsersResponseInner
  */
 export interface GetUsersResponseInner {
-  /**
-   *
-   * @type {Array<User>}
-   * @memberof GetUsersResponseInner
-   */
-  data: Array<User>;
+    /**
+     *
+     * @type {Array<User>}
+     * @memberof GetUsersResponseInner
+     */
+    data: Array<User>;
 }
 /**
  * Check if a given object implements the GetUsersResponseInner interface.
  */
 export declare function instanceOfGetUsersResponseInner(value: object): boolean;
 export declare function GetUsersResponseInnerFromJSON(json: any): GetUsersResponseInner;
-export declare function GetUsersResponseInnerFromJSONTyped(
-  json: any,
-  ignoreDiscriminator: boolean
-): GetUsersResponseInner;
+export declare function GetUsersResponseInnerFromJSONTyped(json: any, ignoreDiscriminator: boolean): GetUsersResponseInner;
 export declare function GetUsersResponseInnerToJSON(value?: GetUsersResponseInner | null): any;

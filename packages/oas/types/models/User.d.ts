@@ -15,24 +15,24 @@
  * @interface User
  */
 export interface User {
-  /**
-   *
-   * @type {string}
-   * @memberof User
-   */
-  id: string;
-  /**
-   *
-   * @type {string}
-   * @memberof User
-   */
-  name?: string;
-  /**
-   * base64 encoding
-   * @type {string}
-   * @memberof User
-   */
-  image?: string;
+    /**
+     *
+     * @type {string}
+     * @memberof User
+     */
+    id: string;
+    /**
+     *
+     * @type {string}
+     * @memberof User
+     */
+    name?: string;
+    /**
+     * base64 encoding
+     * @type {string}
+     * @memberof User
+     */
+    image?: string;
 }
 /**
  * Check if a given object implements the User interface.
