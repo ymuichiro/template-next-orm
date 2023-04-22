@@ -10,6 +10,11 @@ datasource db {
   url      = "file:./dev.db"
 }
 
+generator erd {
+  provider = "prisma-erd-generator"
+  output   = "./erd.svg"
+}
+
 model Account {
   id                String  @id @default(cuid())
   userId            String

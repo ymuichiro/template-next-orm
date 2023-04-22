@@ -26,10 +26,12 @@
     "swr": "^2.1.1"
   },
   "devDependencies": {
+    "@mermaid-js/mermaid-cli": "^10.1.0",
     "@types/formidable": "^2.0.5",
     "@types/node": "^18.15.11",
     "@types/react": "^18.0.28",
     "@types/react-dom": "^18.0.11",
-    "prisma": "^4.10.1"
+    "prisma": "^4.10.1",
+    "prisma-erd-generator": "^1.5.4"
   }
 }
