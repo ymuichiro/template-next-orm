@@ -10,10 +10,11 @@ datasource db {
   url      = "file:./dev.db"
 }
 
-generator erd {
-  provider = "prisma-erd-generator"
-  output   = "./erd.svg"
-}
+// Commented out for node:18-alpine because it is not executable
+// generator erd {
+//   provider = "prisma-erd-generator"
+//   output   = "./erd.svg"
+// }
 
 model Account {
   id                String  @id @default(cuid())

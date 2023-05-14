@@ -1,6 +1,6 @@
+import prisma from '@/services/InitPrisma';
 import { NextApiRequest, NextApiResponse } from 'next/types';
 import * as oas from 'oas';
-import prisma from '@/services/InitPrisma';
 
 export default async function user(req: NextApiRequest, res: NextApiResponse) {
   try {

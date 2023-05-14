@@ -1,15 +1,37 @@
-import NextAuth, { AuthOptions } from 'next-auth';
-import { PrismaAdapter } from '@next-auth/prisma-adapter';
-import GithubProvider from 'next-auth/providers/github';
+import CustomCredentialProvider from '@/services/CredentialProvider';
 import prisma from '@/services/InitPrisma';
+import { PrismaAdapter } from '@next-auth/prisma-adapter';
+import Cookies from 'cookies';
+import { randomUUID } from 'crypto';
+import NextAuth, { type AuthOptions, type ISODateString } from 'next-auth';
+import type { OAuthConfig } from 'next-auth/providers';
+import GithubProvider, { type GithubProfile } from 'next-auth/providers/github';
+import type { NextApiRequest, NextApiResponse } from 'next/types';
+
+declare module 'next-auth' {
+  interface Session {
+    user: {
+      id?: string;
+      name?: string | null;
+      email?: string | null;
+      image?: string | null;
+    };
+    expires: ISODateString;
+  }
+}
+
+const prismaAdapter = PrismaAdapter(prisma);
+const customCredentialProvider = CustomCredentialProvider();
+const githubProvider: OAuthConfig<GithubProfile> = GithubProvider({
+  clientId: process.env.OAUTH_GITHUB_CLIENT_ID,
+  clientSecret: process.env.OAUTH_GITHUB_CLIENT_SECRET,
+});
 
 export const authOptions: AuthOptions = {
-  providers: [
-    GithubProvider({
-      clientId: process.env.OAUTH_GITHUB_CLIENT_ID,
-      clientSecret: process.env.OAUTH_GITHUB_CLIENT_SECRET,
-    }),
-  ],
+  providers:
+    process.env.NODE_ENV === 'development'
+      ? [githubProvider, customCredentialProvider.credentialProvider]
+      : [githubProvider],
   pages: {
     signIn: '/auth/signin',
     signOut: '/auth/signOut',
@@ -19,7 +41,7 @@ export const authOptions: AuthOptions = {
     maxAge: 60 * 60 * 24 * 30,
   },
   secret: process.env.NEXTAUTH_SECRET,
-  adapter: PrismaAdapter(prisma),
+  adapter: prismaAdapter,
   callbacks: {
     session: async ({ session, token }) => {
       if (session?.user) {
@@ -30,4 +52,29 @@ export const authOptions: AuthOptions = {
   },
 };
 
-export default NextAuth(authOptions);
+export default async function auth(req: NextApiRequest, res: NextApiResponse) {
+  // NextAuth Option にテストユーザー向けの処理を追加
+  return NextAuth(req, res, {
+    ...authOptions,
+    callbacks: {
+      ...authOptions.callbacks,
+      signIn: async ({ user }) => {
+        if (
+          req.query.nextauth?.includes('callback') &&
+          req.query.nextauth.includes('Credentials') &&
+          req.method === 'POST'
+        ) {
+          if (user) {
+            const expiresDate = Date.now();
+            const sessionToken = randomUUID();
+            const expires = new Date(expiresDate + 1000 * 60 * 60 * 3);
+            await prismaAdapter.createSession({ sessionToken, userId: user.id, expires });
+            const cookies = new Cookies(req, res);
+            cookies.set('next-auth.session-token', sessionToken, { expires });
+          }
+        }
+        return true;
+      },
+    },
+  });
+}

@@ -1,7 +1,32 @@
-import { createTheme } from '@mui/material/styles';
+import { PaletteColorOptions, createTheme } from '@mui/material/styles';
 import { Inter } from '@next/font/google';
 
 const inter = Inter({ subsets: ['latin'] });
+
+declare module '@mui/material/styles' {
+  interface Palette {
+    neutral?: PaletteColorOptions;
+  }
+  interface PaletteOptions {
+    neutral?: PaletteColorOptions;
+  }
+}
+
+declare module '@mui/material/Button' {
+  interface ButtonPropsColorOverrides {
+    neutral: true;
+  }
+  interface ButtonClasses {
+    containedNeutral: true;
+  }
+}
+
+declare module '@mui/material/Paper' {
+  interface PaperPropsVariantOverrides {
+    outlined: true;
+    error: true;
+  }
+}
 
 const theme = createTheme({
   palette: {
