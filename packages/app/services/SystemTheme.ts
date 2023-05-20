@@ -102,7 +102,6 @@ const theme = createTheme({
     MuiFormControl: {
       defaultProps: {
         fullWidth: true,
-        variant: 'standard',
       },
     },
     MuiSelect: {

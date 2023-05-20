@@ -10,7 +10,9 @@
     "lint": "next lint",
     "test": "eslint './*.{js,jsx,ts,tsx}' --ignore-path ../../.gitignore && tsc --noEmit",
     "prisma:migrate": "prisma migrate dev",
-    "prisma:deploy": "prisma generate && prisma migrate deploy"
+    "prisma:deploy": "prisma generate && prisma migrate deploy",
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build"
   },
   "dependencies": {
     "@emotion/react": "^11.10.5",
@@ -30,12 +32,21 @@
   },
   "devDependencies": {
     "@mermaid-js/mermaid-cli": "^10.1.0",
+    "@storybook/addon-essentials": "^7.0.12",
+    "@storybook/addon-interactions": "^7.0.12",
+    "@storybook/addon-links": "^7.0.12",
+    "@storybook/blocks": "^7.0.12",
+    "@storybook/nextjs": "^7.0.12",
+    "@storybook/react": "^7.0.12",
+    "@storybook/testing-library": "^0.0.14-next.2",
     "@types/cookies": "^0.7.7",
     "@types/formidable": "^2.0.5",
     "@types/node": "^18.15.11",
     "@types/react": "^18.0.28",
     "@types/react-dom": "^18.0.11",
+    "eslint-plugin-storybook": "^0.6.12",
     "prisma": "^4.10.1",
-    "prisma-erd-generator": "^1.5.4"
+    "prisma-erd-generator": "^1.5.4",
+    "storybook": "^7.0.12"
   }
 }

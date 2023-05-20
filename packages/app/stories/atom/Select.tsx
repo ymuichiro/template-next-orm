@@ -1,6 +1,6 @@
+import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
 import MuiSelect, { SelectChangeEvent } from '@mui/material/Select';
 
 interface Item {
@@ -18,10 +18,7 @@ interface Props {
   onChange?: (event: SelectChangeEvent) => void;
 }
 
-/**
- * mui-material select components
- */
-export default function Select(props: Props): JSX.Element {
+export function Select(props: Props): JSX.Element {
   return (
     <FormControl required={props.required}>
       <InputLabel id={`${props.id}-label`}>{props.label}</InputLabel>
