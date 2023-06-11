@@ -1,15 +1,17 @@
-import prisma from '@/services/InitPrisma';
-import { NextApiRequest, NextApiResponse } from 'next/types';
-import * as oas from 'oas';
+import { type oas } from '@/services/InitOpenAPI';
+import { prisma } from '@/services/InitPrisma';
+import { Logger } from '@/services/Logger';
+import type { NextApiRequest, NextApiResponse } from 'next/types';
 
-export default async function user(req: NextApiRequest, res: NextApiResponse) {
+export default async function handle(req: NextApiRequest, res: NextApiResponse) {
   try {
+    Logger.debug('access', req);
     if (req.method === 'GET') {
-      return getUser(req, res);
+      return GET(req, res);
     }
     return res.status(405).end();
   } catch (err) {
-    console.error(err);
+    Logger.error('Internal Error', req, err);
     return res.status(500).end();
   }
 }
@@ -17,7 +19,7 @@ export default async function user(req: NextApiRequest, res: NextApiResponse) {
 /**
  * @description GET:/api/user get users list
  */
-async function getUser(_: NextApiRequest, res: NextApiResponse<oas.GetUsersResponseInner>) {
+async function GET(_: NextApiRequest, res: NextApiResponse<oas.GetUsersResponseInner>) {
   const take = 20;
 
   const users = await prisma.user.findMany({

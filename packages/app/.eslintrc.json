@@ -1,7 +1,13 @@
 {
   "extends": ["next/core-web-vitals", "plugin:storybook/recommended"],
   "rules": {
-    "react-hooks/exhaustive-deps": "off"
+    "react-hooks/exhaustive-deps": "off",
+    "no-restricted-imports": [
+      "error",
+      {
+        "patterns": ["@mui/*/*/*"]
+      }
+    ]
   },
   "ignorePatterns": ["**/*.stories.tsx"]
 }

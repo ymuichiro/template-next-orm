@@ -131,6 +131,8 @@ dist
 
 # other
 packages/oas/tmp
+packages/oas/types
+packages/app/assets
 **/**.db
 **/**.db-journal
 .DS_Store

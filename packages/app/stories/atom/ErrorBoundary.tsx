@@ -33,7 +33,7 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundarySt
   render() {
     if (this.state.hasError) {
       return (
-        <Card variant='error' style={{ width: '100%' }}>
+        <Card style={{ width: '100%' }}>
           <CardContent>
             <Typography variant='h5' color='textSecondary' align='left' gutterBottom>
               Error

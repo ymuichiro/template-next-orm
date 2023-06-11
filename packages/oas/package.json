@@ -10,9 +10,9 @@
     "package.json"
   ],
   "scripts": {
-    "prebuild": "rimraf types && rimraf tmp",
-    "build": "cross-env TS_POST_PROCESS_FILE='npx prettier --write' openapi-generator-cli generate",
-    "postbuild": "tsc --outDir ./types",
+    "prebuild": "rimraf types/** && rimraf tmp",
+    "build": "openapi-generator-cli generate",
+    "postbuild": "tsc --build tsconfig.json",
     "viewer": "swagger-viewer ./specification/v1.yml"
   }
 }

@@ -1,5 +1,5 @@
 import AppLogo from '@/assets/logo/white.png';
-import { authPath } from '@/services/Navigaion';
+import { paths } from '@/services/Navigaion';
 import Button from '@mui/material/Button';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
@@ -14,7 +14,7 @@ import { authOptions } from '../api/auth/[...nextauth]';
 
 export default function SignOut() {
   const handleSignOut = () => {
-    signOut({ callbackUrl: '/' });
+    signOut({ callbackUrl: paths.root.index.href });
   };
 
   return (
@@ -55,7 +55,7 @@ export default function SignOut() {
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   const session = await getServerSession(context.req, context.res, authOptions);
   if (!session) {
-    return { redirect: { destination: authPath.signIn() } };
+    return { redirect: { destination: paths.auth.signin.href } };
   }
 
   return {

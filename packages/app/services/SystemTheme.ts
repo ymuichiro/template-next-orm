@@ -1,41 +1,28 @@
-import { PaletteColorOptions, createTheme } from '@mui/material/styles';
+import { createTheme } from '@mui/material/styles';
 import { Inter } from '@next/font/google';
 
 const inter = Inter({ subsets: ['latin'] });
 
-declare module '@mui/material/styles' {
-  interface Palette {
-    neutral?: PaletteColorOptions;
-  }
-  interface PaletteOptions {
-    neutral?: PaletteColorOptions;
-  }
-}
-
-declare module '@mui/material/Button' {
-  interface ButtonPropsColorOverrides {
-    neutral: true;
-  }
-  interface ButtonClasses {
-    containedNeutral: true;
-  }
-}
-
-declare module '@mui/material/Paper' {
-  interface PaperPropsVariantOverrides {
-    outlined: true;
-    error: true;
-  }
-}
-
 const theme = createTheme({
   palette: {
     mode: 'dark',
-    neutral: {
-      main: '#FFF',
-      light: '#FFF',
-      dark: '#72f7ff',
-      contrastText: '#000',
+    primary: {
+      main: '#90CAF9',
+      light: '#E3F2FD',
+      dark: '#42A5F5',
+      contrastText: 'rgba(0, 0, 0, 0.87)',
+    },
+    secondary: {
+      main: '#424242',
+      light: '#BDBDBD',
+      dark: '#000000',
+      contrastText: 'rgba(255, 255, 255, 0.87)',
+    },
+    info: {
+      main: '#FFFFFF',
+      light: '#FFFFFF',
+      dark: '#EEEEEE',
+      contrastText: 'rgba(0, 0, 0, 0.87)',
     },
   },
   typography: {
@@ -61,6 +48,19 @@ const theme = createTheme({
   },
   shape: {
     borderRadius: 8,
+  },
+  mixins: {
+    toolbar: {
+      minHeight: 56,
+      '@media (min-width:0px):': {
+        '@media (orientation: landscape):': {
+          minHeight: 56,
+        },
+      },
+      '@media (min-width:600px):': {
+        minHeight: 56,
+      },
+    },
   },
   components: {
     MuiTypography: {
@@ -122,19 +122,6 @@ const theme = createTheme({
           textDecoration: 'none',
         },
       },
-    },
-    MuiCard: {
-      variants: [
-        {
-          props: { variant: 'error' },
-          style: {
-            border: 'solid 2px',
-            borderColor: '#D32F2F',
-            borderWidth: '3px',
-            background: 'rgba(255,0,0,0.1)',
-          },
-        },
-      ],
     },
   },
 });

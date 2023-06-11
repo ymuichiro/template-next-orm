@@ -1,9 +1,12 @@
 {
   "extends": "../../tsconfig.json",
   "exclude": ["node_modules"],
+  "include": ["tmp/**/*"],
   "compilerOptions": {
     "declaration": true,
     "noEmit": false,
-    "allowJs": false
+    "allowJs": false,
+    "outDir": "./types",
+    "removeComments": true
   }
 }

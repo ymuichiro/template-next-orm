@@ -1,5 +1,5 @@
 import CustomCredentialProvider from '@/services/CredentialProvider';
-import prisma from '@/services/InitPrisma';
+import { prisma } from '@/services/InitPrisma';
 import { PrismaAdapter } from '@next-auth/prisma-adapter';
 import Cookies from 'cookies';
 import { randomUUID } from 'crypto';
@@ -28,10 +28,7 @@ const githubProvider: OAuthConfig<GithubProfile> = GithubProvider({
 });
 
 export const authOptions: AuthOptions = {
-  providers:
-    process.env.NODE_ENV === 'development'
-      ? [githubProvider, customCredentialProvider.credentialProvider]
-      : [githubProvider],
+  providers: [githubProvider, customCredentialProvider.credentialProvider],
   pages: {
     signIn: '/auth/signin',
     signOut: '/auth/signOut',
@@ -53,7 +50,6 @@ export const authOptions: AuthOptions = {
 };
 
 export default async function auth(req: NextApiRequest, res: NextApiResponse) {
-  // NextAuth Option にテストユーザー向けの処理を追加
   return NextAuth(req, res, {
     ...authOptions,
     callbacks: {

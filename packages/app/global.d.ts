@@ -7,6 +7,9 @@ declare namespace NodeJS {
     readonly OAUTH_GITHUB_CLIENT_SECRET: string;
     readonly NEXTAUTH_SECRET: string;
     readonly NEXTAUTH_URL: string;
+    readonly ACCOUNT_ADMIN_EMAIL: string;
+    readonly ACCOUNT_ADMIN_PASSWORD: string;
+    readonly NEXT_IS_BUILDING?: 'TRUE';
     readonly TZ: string;
   }
 }

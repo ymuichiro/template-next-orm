@@ -1,4 +1,4 @@
-# Next.js Template
+<h1 style="text-align:center;margin-top:50px;margin-bottom:50px">Next.js Template</h1>
 
 This is a template for developing Next.js applications. The following implementations are supported.
 

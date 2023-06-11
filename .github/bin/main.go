@@ -35,35 +35,29 @@ func main() {
 	filepath, _ := filepath.Abs(hostDir)
 	platform := dagger.Platform("linux/amd64")
 
-	// test
-	// fmt.Println("===", "Test Start", "===")
-	// test := client.Container().
-	// 	From("node:18").
-	// 	WithDirectory(workDir, client.Host().Directory(filepath)).
-	// 	WithWorkdir(workDir).
-	// 	WithExec([]string{"npm", "ci"}).
-	// 	WithExec([]string{"npm", "run", "test"})
-
-	// _, err = test.Stderr(ctx)
-	// testLog, _ := test.Stdout(ctx)
-
-	// fmt.Println("test", testLog)
-	// if err != nil {
-	// 	panic(err)
-	// }
-
-	// if err != nil {
-	// 	panic(err)
-	// }
-
 	// build
 	fmt.Println("===", "Build Start", "===")
 	ref := client.Container(dagger.ContainerOpts{Platform: platform}).
-		From("node:18-alpine").
-		WithDirectory(workDir, client.Host().Directory(filepath)).
+		From("node:20-alpine").
+		WithDirectory(workDir, client.Host().Directory(filepath, dagger.HostDirectoryOpts{
+			Exclude: []string{
+				"**/node_modules/",
+				".github/",
+				"**/*.db",
+				"**/*.db-journal",
+				"**/.env*",
+				"**/README.md",
+				"**/.storybook",
+				".git/",
+				"**/*.log",
+				".npm",
+				".next",
+				".DS_Store",
+			},
+		})).
 		WithWorkdir(workDir).
 		WithExec([]string{"npm", "ci"}).
-		WithExec([]string{"npm", "run", "prisma:deploy", "-w", "packages/app"}).
+		WithExec([]string{"npm", "run", "test"}).
 		WithExec([]string{"npm", "run", "build"}).
 		WithDefaultArgs(dagger.ContainerWithDefaultArgsOpts{Args: []string{"npm", "run", "start"}}).
 		WithExposedPort(3000)

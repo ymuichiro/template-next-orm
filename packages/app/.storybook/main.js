@@ -6,6 +6,9 @@ const config = {
     name: '@storybook/nextjs',
     options: {},
   },
+  core: {
+    disableTelemetry: true,
+  },
   docs: {
     autodocs: 'tag',
   },

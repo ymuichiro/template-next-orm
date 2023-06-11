@@ -1,5 +1,6 @@
 import AppLogo from '@/assets/logo/white.png';
-import Button from '@mui/material/Button';
+import { paths } from '@/services/Navigaion';
+import ProviderList from '@/stories/molecules/ProviderList';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Divider from '@mui/material/Divider';
@@ -7,16 +8,29 @@ import Fade from '@mui/material/Fade';
 import Typography from '@mui/material/Typography';
 import { getProviders, signIn } from 'next-auth/react';
 import Image from 'next/image';
+import { useRouter } from 'next/router';
 import type { GetServerSidePropsContext, InferGetServerSidePropsType } from 'next/types';
-import { rootPath } from '@/services/Navigaion';
 
 export default function SignIn({ providers }: InferGetServerSidePropsType<typeof getServerSideProps>) {
-  const logoSwitch = (providerName: string) => {
-    switch (providerName) {
-      case 'GitHub':
-        return 'https://authjs.dev/img/providers/github.svg';
-      default:
-        return 'https://authjs.dev/img/providers/github.svg';
+  const router = useRouter();
+
+  const handleSignin = async (providerId: string): Promise<void> => {
+    const res = await signIn(providerId, { redirect: false });
+    if (res && res.ok) {
+      router.push(paths.root.index.href);
+    } else {
+      alert('incorrect value');
+    }
+  };
+
+  const handleCustomProviderSignin = async (providerId: string, email: string, password: string): Promise<void> => {
+    console.log(email, password);
+
+    const res = await signIn(providerId, { redirect: false, email, password });
+    if (res && res.ok) {
+      router.push(paths.root.index.href);
+    } else {
+      alert('incorrect value');
     }
   };
 
@@ -42,18 +56,11 @@ export default function SignIn({ providers }: InferGetServerSidePropsType<typeof
               SignIn
             </Typography>
             <Divider style={{ width: '100%' }} />
-            {Object.values(providers).map((provider) => (
-              <Button
-                fullWidth
-                key={provider.name}
-                style={{ justifyContent: 'flex-start' }}
-                color='neutral'
-                onClick={() => signIn(provider.id, { callbackUrl: rootPath.home() })}
-              >
-                <Image src={logoSwitch(provider.name)} alt={provider.name} width={20} height={20} />
-                Sign in with {provider.name}
-              </Button>
-            ))}
+            <ProviderList
+              providers={providers}
+              onClickProvider={handleSignin}
+              onClickCustomProvider={handleCustomProviderSignin}
+            />
           </CardContent>
         </Card>
       }
